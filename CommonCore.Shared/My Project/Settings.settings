@@ -1,0 +1,33 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="My" GeneratedClassName="MySettings" UseMySettingsClassName="true">
+  <Profiles />
+  <Settings>
+    <Setting Name="Setting" Type="System.String" Scope="User">
+      <Value Profile="(Default)">asdf</Value>
+    </Setting>
+    <Setting Name="FTPServer" Type="System.String" Scope="User">
+      <Value Profile="(Default)">ftp.ourit.works</Value>
+    </Setting>
+    <Setting Name="FTPUser" Type="System.String" Scope="User">
+      <Value Profile="(Default)">solvtopia</Value>
+    </Setting>
+    <Setting Name="FTPPass" Type="System.String" Scope="User">
+      <Value Profile="(Default)">GreenElephant81!</Value>
+    </Setting>
+    <Setting Name="FTPFolder" Type="System.String" Scope="User">
+      <Value Profile="(Default)">ePanicUpdates</Value>
+    </Setting>
+    <Setting Name="SQLServer" Type="System.String" Scope="User">
+      <Value Profile="(Default)">35.188.240.71</Value>
+    </Setting>
+    <Setting Name="SQLUser" Type="System.String" Scope="User">
+      <Value Profile="(Default)">epanicremote</Value>
+    </Setting>
+    <Setting Name="SQLPass" Type="System.String" Scope="User">
+      <Value Profile="(Default)">SunnyCrab28!</Value>
+    </Setting>
+    <Setting Name="DbConnection" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Data Source=[SQLServer];Initial Catalog=[DataBaseName];Persist Security Info=True;User ID=[SQLUser];Password=[SQLPass];Pooling=false;MultipleActiveResultSets=True;Packet Size=32767;</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
