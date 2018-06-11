@@ -17,6 +17,7 @@
     Public Enum ePanicSetting
         UpdateDay = 1
         UpdateTime = 2
+        RemoteUpdateFolder = 3
     End Enum
 
     Public Enum ProjectName

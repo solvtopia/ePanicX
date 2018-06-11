@@ -142,6 +142,19 @@ Module Extensions
         End Try
     End Function
 
+    <Extension()> Public Function HasSetting(ByVal lst As List(Of Settings.Setting), ByVal s As Enums.ePanicSetting) As Boolean
+        Dim retVal As Boolean = False
+
+        For Each itm As Settings.Setting In lst
+            If itm.setting = s Then
+                Return True
+                Exit For
+            End If
+        Next
+
+        Return retVal
+    End Function
+
 #Region "Object Extensions"
 
     <Extension()> Public Function SerializeToXml(ByVal o As Object) As String

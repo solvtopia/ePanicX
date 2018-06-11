@@ -164,4 +164,19 @@ Public Module Xml
         Return sNew
     End Function
 
+    Public Function NewXmlDocument() As XmlDocument
+        Return NewXmlDocument("Data")
+    End Function
+    Public Function NewXmlDocument(ByVal rootElement As String) As XmlDocument
+        Dim retVal As New XmlDocument
+
+        Dim dec As XmlDeclaration = retVal.CreateXmlDeclaration("1.0", "utf-16", "")
+        retVal.PrependChild(dec)
+
+        Dim root As XmlElement = retVal.CreateElement(rootElement)
+        retVal.AppendChild(root)
+
+        Return retVal
+    End Function
+
 End Module
