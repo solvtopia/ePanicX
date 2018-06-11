@@ -88,8 +88,20 @@ Public Structure ErrorLogEntry
     Public project As Enums.ProjectName
 End Structure
 
+Public Structure Message
+    Public ID As Integer
+    Public Recipients As List(Of Integer)
+    Public MessageText As String
+    Public ThreadId As Integer
+
+    Sub New(ByVal id As Integer)
+
+    End Sub
+End Structure
 
 
+
+#Region "System Objects"
 
 Public Class SystemUser
 #Region "Properties"
@@ -184,3 +196,5 @@ Public Class Customer
         End Try
     End Sub
 End Class
+
+#End Region
