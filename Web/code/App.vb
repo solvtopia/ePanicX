@@ -1,7 +1,7 @@
 ﻿Public Class App
     Public Shared ReadOnly Property MyCluster As ClusterDatabase
         Get
-            If HttpContext.Current.Session("MyCluster") Is Nothing Then HttpContext.Current.Session("MyCluster") = New ClusterDatabase(Me.CurrentUser.UserKey)
+            If HttpContext.Current.Session("MyCluster") Is Nothing Then HttpContext.Current.Session("MyCluster") = New ClusterDatabase(CurrentUser.UserKey)
             Return CType(HttpContext.Current.Session("MyCluster"), ClusterDatabase)
         End Get
     End Property

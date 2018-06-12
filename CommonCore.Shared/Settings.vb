@@ -129,6 +129,8 @@ Public Class Settings
                 retVal = "everyday"
             Case Enums.ePanicSetting.UpdateTime
                 retVal = "12:00:00 AM"
+            Case Enums.ePanicSetting.RemoteUpdateFolder
+                retVal = "/AutoUpdate"
         End Select
 
         Return retVal

@@ -19,14 +19,21 @@
                 <tr>
                     <td>Setting Type</td>
                     <td style="margin-left: 40px">
-                        <asp:DropDownList ID="DropDownList1" runat="server">
+                        <asp:DropDownList ID="ddlType" runat="server">
+                        </asp:DropDownList>
+                    </td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td style="margin-left: 40px">
+                        <asp:DropDownList ID="ddlID" runat="server">
                         </asp:DropDownList>
                     </td>
                 </tr>
                 <tr>
                     <td>Name</td>
                     <td>
-                        <asp:DropDownList ID="DropDownList2" runat="server">
+                        <asp:DropDownList ID="ddlSetting" runat="server">
                         </asp:DropDownList>
                     </td>
                 </tr>

@@ -6,9 +6,9 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{C11EF642-A36F-42E7-975F-F623FB079F96}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <StartupObject>SchedulerService.Service1</StartupObject>
+    <StartupObject>SchedulerService.Service</StartupObject>
     <RootNamespace>SchedulerService</RootNamespace>
-    <AssemblyName>SchedulerService</AssemblyName>
+    <AssemblyName>ePanic.SchedulerService</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>Console</MyType>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
@@ -21,7 +21,7 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>..\Builds\</OutputPath>
-    <DocumentationFile>SchedulerService.xml</DocumentationFile>
+    <DocumentationFile>ePanic.SchedulerService.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -31,7 +31,7 @@
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>SchedulerService.xml</DocumentationFile>
+    <DocumentationFile>ePanic.SchedulerService.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup>
@@ -48,6 +48,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.ServiceProcess" />
@@ -74,11 +75,17 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Application.myapp</DependentUpon>
     </Compile>
-    <Compile Include="Service1.vb">
+    <Compile Include="ProjectInstaller.Designer.vb">
+      <DependentUpon>ProjectInstaller.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectInstaller.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Service1.Designer.vb">
-      <DependentUpon>Service1.vb</DependentUpon>
+    <Compile Include="Service.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Service.Designer.vb">
+      <DependentUpon>Service.vb</DependentUpon>
     </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Resources.Designer.vb">
@@ -98,6 +105,9 @@
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProjectInstaller.resx">
+      <DependentUpon>ProjectInstaller.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

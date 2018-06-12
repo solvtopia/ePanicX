@@ -1,4 +1,5 @@
-﻿Imports ePanic.CommonCore.Shared.Common
+﻿Imports System.IO
+Imports ePanic.CommonCore.Shared.Common
 
 Public Class ClusterDatabase
 #Region "Properties"
@@ -17,9 +18,19 @@ Public Class ClusterDatabase
 #End Region
 
     Sub New(ByVal userKey As String)
-
+        Me.Fill(userKey)
     End Sub
     Sub New(ByVal customerKey As String, ByVal userKey As String)
+        Me.Fill(customerKey, userKey)
+    End Sub
+
+    Private Sub Fill(ByVal userKey As String)
+        Dim customer As New Customer()
+        customer.LoadFromUserKey(userKey)
+
+        Me.Fill(customer.CustomerKey, userKey)
+    End Sub
+    Private Sub Fill(ByVal customerKey As String, userKey As String)
         ' load the customer info
         Dim cn As New SqlClient.SqlConnection(MasterConnectionString)
 
@@ -97,6 +108,15 @@ Public Structure Message
     Sub New(ByVal id As Integer)
 
     End Sub
+End Structure
+
+Public Structure GalleryImage
+    Public ID As Integer
+    Public Type As Enums.ImageType
+    Public FileName As String
+    Public FileSize As Integer
+    Public Description As String
+    Public Content As MemoryStream
 End Structure
 
 

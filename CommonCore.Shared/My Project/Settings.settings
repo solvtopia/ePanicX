@@ -14,9 +14,6 @@
     <Setting Name="FTPPass" Type="System.String" Scope="User">
       <Value Profile="(Default)">GreenElephant81!</Value>
     </Setting>
-    <Setting Name="FTPFolder" Type="System.String" Scope="User">
-      <Value Profile="(Default)">ePanicUpdates</Value>
-    </Setting>
     <Setting Name="SQLServer" Type="System.String" Scope="User">
       <Value Profile="(Default)">35.188.240.71</Value>
     </Setting>

@@ -1,7 +1,7 @@
 ﻿Public Class Settings
-    Inherits System.Web.UI.Page
+    Inherits MyPage
 
-    Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+    Protected Sub Settings_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If Not IsPostBack Then
             Me.LoadLists()
         End If
@@ -10,7 +10,9 @@
     Private Sub LoadLists()
         Dim enumValues As Array = System.[Enum].GetValues(GetType(Enums.ePanicSettingType))
         For Each resource As Enums.ePanicSettingType In enumValues
-            Me.ddlType.Items.Add(New ListItem(resource.ToString, CStr(resource)))
+            If resource <> Enums.ePanicSettingType.Default Then
+                Me.ddlType.Items.Add(New ListItem(resource.ToString, CStr(resource)))
+            End If
         Next
 
         enumValues = System.[Enum].GetValues(GetType(Enums.ePanicSetting))

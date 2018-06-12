@@ -52,9 +52,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
@@ -78,6 +80,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="code\Common.vb" />
+    <Compile Include="code\Services.vb" />
     <Compile Include="fMain.vb">
       <SubType>Form</SubType>
     </Compile>

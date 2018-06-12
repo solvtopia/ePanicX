@@ -20,6 +20,13 @@
         RemoteUpdateFolder = 3
     End Enum
 
+    ' image gallery
+    Public Enum ImageType
+        Icon
+        [Global]
+    End Enum
+
+    ' logs
     Public Enum ProjectName
         AutoUpdate
         Client

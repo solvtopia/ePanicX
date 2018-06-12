@@ -104,18 +104,6 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("ePanicUpdates")>  _
-        Public Property FTPFolder() As String
-            Get
-                Return CType(Me("FTPFolder"),String)
-            End Get
-            Set
-                Me("FTPFolder") = value
-            End Set
-        End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("35.188.240.71")>  _
         Public Property SQLServer() As String
             Get
