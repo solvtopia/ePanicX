@@ -1,0 +1,61 @@
+﻿<UserControl x:Class="EPanicClient.Views.CancelSendWindow"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+  xmlns:se="clr-namespace:Microsoft.Expression.Interactivity.Core;assembly=Microsoft.Expression.Interactions"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:loc="clr-namespace:EPanicClient.Models"
+  xmlns:tb="http://www.hardcodet.net/taskbar" 
+  Height="90" Width="289" HorizontalAlignment="Center" 
+  x:Name="me" BorderThickness="1" BorderBrush="{DynamicResource WindowBorder}" Background="{DynamicResource WindowBackground}" >
+    <Grid Margin="0,0,0,0">
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="2,5">
+            <StackPanel HorizontalAlignment="Center" Width="90" VerticalAlignment="Center" Margin="4,0,0,4">
+                <TextBlock Text="{Binding SendDelay}"  HorizontalAlignment="Center" FontSize="50" FontFamily="Segoe UI"  FontWeight="Bold" Foreground="White"  />
+            </StackPanel>
+            <StackPanel Width="4"></StackPanel>
+            <Button VerticalAlignment="Center"  Width="90"  Command="{Binding SendAlertNowCommand}" Height="85" HorizontalAlignment="Center"  Background="#404040" Margin="2,0,0,0" >
+                <StackPanel>
+                    <Canvas  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"  Width="65" Height="46" Clip="F1 M 0,0L 76,0L 76,76L 0,76L 0,0">
+                        <Path Width="43" Height="36.827" Canvas.Left="7" Canvas.Top="5.087"  Stretch="Fill" Data="F1 M 0,110L 47.6667,62L 102,117.333L 218.667,0L 266,48L 102,212.333L 0,110 Z ">
+                            <Path.Style>
+                                <Style TargetType="Path">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Path=IsEnabled, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}" Value="True">
+                                            <Setter Property="Fill" Value="#FFFFFFFF" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Path=IsEnabled, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}" Value="False">
+                                            <Setter Property="Fill" Value="#FF2d2d2e" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Path.Style>
+                        </Path>
+                    </Canvas>
+                    <TextBlock Text="SEND" Margin="0,0,0,0" HorizontalAlignment="Center" FontSize="14" FontFamily="Segoe UI"  FontWeight="Bold" Foreground="White"  />
+                </StackPanel>
+            </Button> 
+            <Button VerticalAlignment="Center"  Width="90"  Command="{Binding CancelAlertCommand}" Height="85" HorizontalAlignment="Center"  Background="#d03436" Margin="2,0,0,0" >
+                <StackPanel>
+                    <Canvas  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Width="65" Height="46" Clip="F1 M 0,0L 76,0L 76,76L 0,76L 0,0">
+
+                        <Path Width="36" Height="30.832" Canvas.Left="12" Canvas.Top="10.084" Stretch="Fill" Data="F1 M 4.70432,0L 0.0480347,4.77802L 7.00842,11.6812L 0,18.7292L 4.70432,23.46L 11.6647,16.412L 18.6252,23.46L 23.3774,18.7774L 16.369,11.6812L 23.3294,4.77802L 18.6252,0L 11.6647,6.9986L 4.70432,0 Z ">
+                            <Path.Style>
+                                <Style TargetType="Path">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Path=IsEnabled, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}" Value="True">
+                                            <Setter Property="Fill" Value="#FFFFFFFF" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Path=IsEnabled, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}" Value="False">
+                                            <Setter Property="Fill" Value="#FF2d2d2e" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Path.Style>
+                        </Path>
+                    </Canvas>
+                    <TextBlock Text="CANCEL" Margin="0,0,0,0" HorizontalAlignment="Center" FontSize="14" FontFamily="Segoe UI"  FontWeight="Bold" Foreground="White"  />
+                </StackPanel>
+            </Button>
+        </StackPanel>
+    </Grid>
+</UserControl>

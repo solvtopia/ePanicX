@@ -1,0 +1,32 @@
+﻿<mui:ModernWindow x:Class="EPanicClient.Views.MainWindow"
+                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+        Title="ePanic Button" IsTitleVisible="True"
+        LogoData="{DynamicResource MwUserGeoIcon}"          
+        ContentSource="{Binding Path=MainContentSource, Mode=TwoWay}"
+        MaxWidth="456" 
+        MaxHeight="550"
+        MinWidth="456" 
+        MinHeight="550"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize" ShowInTaskbar="False"
+         >
+
+    <mui:ModernWindow.MenuLinkGroups>
+        <mui:LinkGroup DisplayName="user information">
+            <mui:LinkGroup.Links>
+                <mui:Link DisplayName="" Source="/Views/UserInfo.xaml" />
+            </mui:LinkGroup.Links>
+        </mui:LinkGroup>
+        <mui:LinkGroup DisplayName="settings" GroupName="settings">
+            <mui:LinkGroup.Links>
+                <mui:Link DisplayName="" Source="/Views/Settings.xaml" />
+            </mui:LinkGroup.Links>
+        </mui:LinkGroup>
+    </mui:ModernWindow.MenuLinkGroups>
+    
+    <mui:ModernWindow.TitleLinks>
+        <mui:Link DisplayName="settings" Source="/Views/Settings.xaml" />
+    </mui:ModernWindow.TitleLinks>
+</mui:ModernWindow>
