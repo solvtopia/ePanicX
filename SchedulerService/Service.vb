@@ -90,21 +90,20 @@ Public Class Service
 
         ' check to see if it's time to run the autoupdate
         If Now >= updateDateTime And Now <= updateDateTime.AddMilliseconds(UpdateTimer.Interval) Then
+            Dim m As New Machine(MyCluster.MachineKey)
 
             ' see if there is a new version of the updater
             Dim ftp As New Ftp()
 
-            Dim updateAssembly As String = "ePanic.AutoUpdate.exe"
+            Dim updaterAssemblyName As String = "ePanic.AutoUpdate.exe"
             Dim installPath As String = My.Application.Info.DirectoryPath
             Dim updatePath As String = My.Computer.FileSystem.CombinePath(My.Application.Info.DirectoryPath, "Updates\")
             If Not My.Computer.FileSystem.DirectoryExists(updatePath) Then My.Computer.FileSystem.CreateDirectory(updatePath)
 
             Dim remoteUpdateFolder As String = MySettings.GetSetting(Enums.ePanicSetting.RemoteUpdateFolder).value
 
-            Dim lstLog As New List(Of String)
-
             ' close the updater application if it's running
-            Dim pProcess() As Process = System.Diagnostics.Process.GetProcessesByName(updateAssembly)
+            Dim pProcess() As Process = System.Diagnostics.Process.GetProcessesByName(updaterAssemblyName)
             For Each p As Process In pProcess
                 p.Kill()
             Next
@@ -115,11 +114,11 @@ Public Class Service
             Dim updateFiles As List(Of String) = ftp.ListFiles(remoteUpdateFolder)
             For Each f As String In updateFiles
                 ' only process the autoupdate files, everything else is handled by the update utility
-                If f.ToLower.StartsWith(updateAssembly.Replace(".exe", "").ToLower) Then
+                If f.ToLower.StartsWith(updaterAssemblyName.Replace(".exe", "").ToLower) Then
                     Dim updateFile As String = My.Computer.FileSystem.CombinePath(updatePath, f)
-                    Dim installFile As String = My.Computer.FileSystem.CombinePath(installPath, f)
+                    Dim installedFile As String = My.Computer.FileSystem.CombinePath(installPath, f)
 
-                    fileIsNew = Not My.Computer.FileSystem.FileExists(installFile)
+                    fileIsNew = Not My.Computer.FileSystem.FileExists(installedFile)
 
                     If My.Computer.FileSystem.FileExists(updateFile) Then My.Computer.FileSystem.DeleteFile(updateFile)
 
@@ -131,33 +130,37 @@ Public Class Service
                         ' we can only get the assembly info for executables or libraries
                         ' get the assembly info for both the new and old files
                         Dim assembly As System.Reflection.Assembly = System.Reflection.Assembly.LoadFile(updateFile)
-                        Dim updateFileInfo As FileVersionInfo = FileVersionInfo.GetVersionInfo(assembly.Location)
-                        assembly = System.Reflection.Assembly.LoadFile(installFile)
-                        Dim installFileInfo As FileVersionInfo = FileVersionInfo.GetVersionInfo(assembly.Location)
+                        Dim updateVersionInfo As FileVersionInfo = FileVersionInfo.GetVersionInfo(assembly.Location)
+                        assembly = System.Reflection.Assembly.LoadFile(installedFile)
+                        Dim installVersionInfo As FileVersionInfo = FileVersionInfo.GetVersionInfo(assembly.Location)
 
                         ' make sure the file from the update is a newer version so we don't update files we don't need to
-                        If CompareVersions(updateFileInfo.FileVersion, installFileInfo.FileVersion) Then
+                        If CompareVersions(updateVersionInfo.FileVersion, installVersionInfo.FileVersion) Then
                             processUpdate = True
                         End If
                     Else
                         ' all other files we can use the date modified
                         Dim updateFileInfo As New FileInfo(updateFile)
-                        Dim installFileInfo As New FileInfo(installFile)
+                        Dim installedFileInfo As New FileInfo(installedFile)
 
-                        If ftp.GetDateModified(remoteUpdateFolder & "/" & f) > installFileInfo.LastWriteTime Then
+                        If ftp.GetDateModified(remoteUpdateFolder & "/" & f) > installedFileInfo.LastWriteTime Then
                             processUpdate = True
                         End If
                     End If
 
                     ' if we are good to update then we can proceed
                     If processUpdate Then
-                        Dim installFileInfo As New FileInfo(installFile)
+                        Dim installedFileInfo As New FileInfo(installedFile)
 
                         ' rename the old file in case something goes wrong
-                        My.Computer.FileSystem.RenameFile(installFile, installFileInfo.Name & ".AutoUpdateTemp")
+                        My.Computer.FileSystem.RenameFile(installedFile, installedFileInfo.Name & ".AutoUpdateTemp")
 
                         ' copy the update file to the application directory
-                        My.Computer.FileSystem.CopyFile(updateFile, installFile)
+                        Try
+                            My.Computer.FileSystem.CopyFile(updateFile, installedFile)
+                        Catch ex As Exception
+                            My.Computer.FileSystem.RenameFile(installedFileInfo.FullName & ".AutoUpdateTemp", installedFileInfo.Name)
+                        End Try
 
                         ' register any libraries
                         If f.ToLower.EndsWith(".dll") And fileIsNew Then
@@ -167,13 +170,24 @@ Public Class Service
                         End If
 
                         ' delete the old version once the new one is copied
-                        My.Computer.FileSystem.DeleteFile(installFile & ".AutoUpdateTemp")
+                        My.Computer.FileSystem.DeleteFile(installedFile & ".AutoUpdateTemp")
+
+                        ' keep the installed versions in the machine record
+                        If f.ToLower.EndsWith(".exe") Or f.ToLower.EndsWith(".dll") Then
+                            Dim asm As System.Reflection.Assembly = System.Reflection.Assembly.LoadFile(installedFile)
+                            Dim installedVersionInfo As FileVersionInfo = FileVersionInfo.GetVersionInfo(asm.Location)
+                            If f.ToLower = updaterAssemblyName.ToLower Then
+                                m.AutoUpdateVersion = New Version(installedVersionInfo.FileVersion)
+                            End If
+                        End If
                     End If
                 End If
             Next
 
+            m.Save()
+
             ' run the updater
-            Process.Start(My.Computer.FileSystem.CombinePath(installPath, updateAssembly))
+            Process.Start(My.Computer.FileSystem.CombinePath(installPath, updaterAssemblyName))
         End If
 
         UpdateTimer.Start()

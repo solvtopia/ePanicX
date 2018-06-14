@@ -1,3 +1,3 @@
-﻿Module Messaging
+﻿Public Module Messaging
 
 End Module

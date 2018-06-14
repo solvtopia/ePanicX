@@ -147,6 +147,10 @@ Public Class Machine
 
     Public MachineKey As String
     Public ID As Integer
+    Public ClientVersion As Version
+    Public AutoUpdateVersion As Version
+    Public SchedulerVersion As Version
+    Public CommonCoreVersion As Version
 
 #End Region
 
@@ -155,6 +159,14 @@ Public Class Machine
     End Sub
     Sub New(ByVal machineKey As String)
 
+    End Sub
+
+    Public Sub Save()
+        If Me.ID = 0 Then
+            ' create a new machine
+        Else
+            ' save the existing machine
+        End If
     End Sub
 End Class
 

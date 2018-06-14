@@ -3,7 +3,7 @@ Imports System.Runtime.CompilerServices
 Imports System.Xml
 Imports System.Xml.Serialization
 
-Module Extensions
+Public Module Extensions
 
     <Extension()> Public Function ToBoolean(ByVal value As Object) As Boolean
         Dim retVal As Boolean = False

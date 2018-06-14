@@ -93,4 +93,23 @@ Public Module Logs
         End Try
     End Function
 
+    ' writes a new entry to the update log
+    Public Sub WriteUpdateLog(ByVal cluster As ClusterDatabase, ByVal log As List(Of String))
+        Dim cn As New SqlClient.SqlConnection(cluster.ConnectionString)
+
+        Try
+            Dim cmd As New SqlClient.SqlCommand("INSERT INTO [UpdateLog] ([MachineID], [Status], [Log], [dtInserted], [InsertedBy], [dtUpdated], [UpdatedBy]) VALUES (@MachineID, @Status, @Log, '" & Now.ToString & "', '" & cluster.UserID & "', '" & Now.ToString & "', '" & cluster.UserID & "')")
+            cmd.Parameters.AddWithValue("@MachineID", cluster.MachineID)
+            cmd.Parameters.AddWithValue("@Status", "1")
+            cmd.Parameters.AddWithValue("@Log", log.SerializeToXml)
+            If cmd.Connection.State = ConnectionState.Closed Then cmd.Connection.Open()
+            cmd.ExecuteNonQuery()
+
+        Catch ex As Exception
+            ex.WriteToErrorLog(New ErrorLogEntry(cluster.UserKey, Enums.ProjectName.AutoUpdate))
+        Finally
+            cn.Close()
+        End Try
+    End Sub
+
 End Module
