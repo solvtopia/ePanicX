@@ -27,6 +27,9 @@ Public Class Settings
 
 #End Region
 
+    Sub New()
+        ' used for now just to hold a blank object
+    End Sub
     Sub New(ByVal cluster As ClusterDatabase)
         Me.cluster = cluster
         Me.AllSettings = New List(Of Setting)

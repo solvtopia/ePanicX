@@ -17,6 +17,9 @@ Public Class ClusterDatabase
 
 #End Region
 
+    Sub New()
+        ' used for now just to hold a blank object
+    End Sub
     Sub New(ByVal userKey As String)
         Me.Fill(userKey)
     End Sub

@@ -22,10 +22,18 @@ Public Class Service
         }
 
     Protected Overrides Sub OnStart(ByVal args() As String)
-        ' load the application default objects
-        MyCluster = New ClusterDatabase("FDB34611-E00B-4033-A427-57EE5E440DCA")
-        MySettings = New Settings(MyCluster)
-        MySettings.ClientLoad()
+        MyCluster = New ClusterDatabase
+        MySettings = New Settings
+
+        ' set defaults for now until the clusters are online
+        MySettings.AllSettings.Add(New Settings.Setting(Enums.ePanicSettingType.Global, Enums.ePanicSetting.UpdateDay, "everyday"))
+        MySettings.AllSettings.Add(New Settings.Setting(Enums.ePanicSettingType.Global, Enums.ePanicSetting.UpdateTime, "12:00:00 AM"))
+        MySettings.AllSettings.Add(New Settings.Setting(Enums.ePanicSettingType.Global, Enums.ePanicSetting.RemoteUpdateFolder, "/AutoUpdate"))
+
+        '' load the application default objects
+        'MyCluster = New ClusterDatabase("FDB34611-E00B-4033-A427-57EE5E440DCA")
+        'MySettings = New Settings(MyCluster)
+        'MySettings.ClientLoad()
 
         AddHandler UpdateTimer.Elapsed, AddressOf Me.OnUpdateTimer
         UpdateTimer.Start()
@@ -196,7 +204,7 @@ Public Class Service
     Private Sub OnSettingsTimer(sender As Object, e As Timers.ElapsedEventArgs)
         SettingsTimer.Stop()
 
-        MySettings.UpdateLocal()
+        'MySettings.UpdateLocal()
 
         SettingsTimer.Start()
     End Sub
